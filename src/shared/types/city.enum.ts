@@ -1,4 +1,4 @@
-import { Coords } from './coords.type';
+import { Coords } from './coords.type.js';
 
 export enum City {
   Paris = 'Paris',
