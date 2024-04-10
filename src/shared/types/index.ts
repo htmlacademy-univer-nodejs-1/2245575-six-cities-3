@@ -6,3 +6,4 @@ export * from './offer.type.js';
 export * from './user.type.js';
 export * from './user-type.enum.js';
 export * from './сonveniences.enum.js';
+export * from './component.enum.js';
