@@ -1,0 +1,87 @@
+{
+  "api": {
+    "postDates": [
+      "2024-01-29T00:46:50+05:00",
+      "2024-02-29T00:46:50+05:00",
+      "2024-03-29T00:46:50+05:00",
+      "2024-04-29T00:46:50+05:00",
+      "2024-05-29T00:46:50+05:00"
+    ],
+    "titles": [
+      "Уютный домик",
+      "Квартирка",
+      "ПРезидентские апартаменты",
+      "Хижина",
+      "Дом дракона"
+    ],
+    "isPremiums": [true, false],
+    "isFavorites": [true, false],
+    "descriptions": [
+      "Классный ремонт",
+      "Хорошее расположение",
+      "Все включено",
+      "Бесплатный завтрак",
+      "Только с 22 лет"
+    ],
+    "cities": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "previewImages": [
+      "home-image.jpg",
+      "house-image.jpg",
+      "apartment-image.jgp"
+    ],
+    "images": [
+      "additional-image-1.jpg",
+      "additional-image-2.jpg",
+      "additional-image-3.jpg"
+    ],
+    "houseTypes": ["apartment", "house", "room", "hotel"],
+    "conveniences": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspaceLaptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "authorFirstnames": [
+      "James",
+      "John",
+      "Robert",
+      "Michael",
+      "William",
+      "David"
+    ],
+    "authorLastnames": [
+      "Smith",
+      "Johnson",
+      "Williams",
+      "Brown",
+      "Jones",
+      "Garcia"
+    ],
+    "authorEmails": [
+      "dog@example.com",
+      "bigboss@example.com",
+      "pineapple@example.com",
+      "apple@example.com",
+      "teaonelove@example.com",
+      "oneloveistea@example.com"
+    ],
+    "authorAvatars": [
+      "avatar1.jpg",
+      "avatar2.jpg",
+      "avatar3.jpg",
+      "avatar4.jpg",
+      "avatar5.jpg",
+      "avatar6.jpg"
+    ]
+  }
+}
