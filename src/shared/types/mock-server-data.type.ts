@@ -1,5 +1,4 @@
 import { HouseType } from './house-type.enum.js';
-import { User } from './user.type.js';
 import { Conveniences } from './сonveniences.enum.js';
 
 export type MockServerData = {
@@ -14,6 +13,9 @@ export type MockServerData = {
   ratings: number[];
   houseTypes: HouseType[];
   conveniences: Conveniences[];
-  authors: User['id'][];
+  authorFirstnames: string[];
+  authorLastnames: string[];
+  authorEmails: string[];
+  authorAvatars: string[];
   commentsCounts: number[];
 };

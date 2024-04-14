@@ -24,7 +24,10 @@ export class TSVOfferGenerator implements OfferGenerator {
   public generate(): string {
     const title = getRandomItem(this.mockData.titles);
     const description = getRandomItem(this.mockData.descriptions);
-    const author = getRandomItem(this.mockData.authors);
+    const authorFirstname = getRandomItem(this.mockData.authorFirstnames);
+    const authorLastname = getRandomItem(this.mockData.authorLastnames);
+    const authorEmail = getRandomItem(this.mockData.authorEmails);
+    const authorAvatar = getRandomItem(this.mockData.authorAvatars);
     const city = getRandomItem(this.mockData.cities);
     const conveniences = getRandomItems(this.mockData.conveniences).join(';');
     const isPremium = getRandomItem(this.mockData.isPremiums);
@@ -44,7 +47,7 @@ export class TSVOfferGenerator implements OfferGenerator {
 
 
     return [
-      title, description, postDate, city, previewImage, images, isPremium, isFavorite, rating, houseType, roomsCount, questsCount, price, conveniences, price, author, commentsCount
+      title, description, postDate, city, previewImage, images, isPremium, isFavorite, rating, houseType, roomsCount, questsCount, price, conveniences, price, authorFirstname, authorLastname, authorEmail, authorAvatar, commentsCount
     ].join('\t');
   }
 }
