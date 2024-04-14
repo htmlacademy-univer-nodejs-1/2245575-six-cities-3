@@ -51,6 +51,37 @@
       "Towels",
       "Fridge"
     ],
-    "authors": ["1", "2"]
+    "authorFirstnames": [
+      "James",
+      "John",
+      "Robert",
+      "Michael",
+      "William",
+      "David"
+    ],
+    "authorLastnames": [
+      "Smith",
+      "Johnson",
+      "Williams",
+      "Brown",
+      "Jones",
+      "Garcia"
+    ],
+    "authorEmails": [
+      "dog@example.com",
+      "bigboss@example.com",
+      "pineapple@example.com",
+      "apple@example.com",
+      "teaonelove@example.com",
+      "oneloveistea@example.com"
+    ],
+    "authorAvatars": [
+      "avatar1.jpg",
+      "avatar2.jpg",
+      "avatar3.jpg",
+      "avatar4.jpg",
+      "avatar5.jpg",
+      "avatar6.jpg"
+    ]
   }
 }

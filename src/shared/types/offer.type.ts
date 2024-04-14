@@ -19,7 +19,7 @@ export type Offer = {
   questsCount: number;
   price: number;
   conveniences: Conveniences[];
-  author: User['id'];
+  author: User;
   commentsCount: number;
   coords: Coords,
 }

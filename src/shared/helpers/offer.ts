@@ -16,15 +16,23 @@ export function createOffer(offerData: string): Offer {
     questsCount,
     price,
     conveniences,
-    author,
+    authorFirstname,
+    authorLastname,
+    authorEmail,
+    authorAvatar,
     commentsCount,
   ] = offerData.replace('\n', '').split('\t');
 
   return {
     title,
     description,
-    author,
     previewImage,
+    author: {
+      firstname: authorFirstname,
+      lastname: authorLastname,
+      email: authorEmail,
+      avatarPath: authorAvatar
+    },
     postDate: new Date(postDate),
     city: city as City,
     images: images ? images.split(';').map((url) => url.trim()) : [],
