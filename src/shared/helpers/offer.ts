@@ -1,10 +1,9 @@
-import { CitiesCoords, City, Conveniences, HouseType, Offer } from '../types/index.js';
+import { CitiesCoords, City, Conveniences, HouseType, Offer, UserType } from '../types/index.js';
 
 export function createOffer(offerData: string): Offer {
   const [
     title,
     description,
-    postDate,
     city,
     previewImage,
     images,
@@ -28,27 +27,26 @@ export function createOffer(offerData: string): Offer {
     description,
     previewImage,
     author: {
-      firstname: authorFirstname,
-      lastname: authorLastname,
+      name: authorFirstname + authorLastname,
       email: authorEmail,
-      avatarPath: authorAvatar
+      avatarPath: authorAvatar,
+      type: UserType.Regular,
     },
-    postDate: new Date(postDate),
     city: city as City,
     images: images ? images.split(';').map((url) => url.trim()) : [],
     isPremium: isPremium === 'true',
-    isFavourite: isFavourite === 'true',
+    isFavorite: isFavourite === 'true',
     rating: Number(Number(rating).toFixed(1)),
-    houseType: houseType as HouseType,
-    roomsCount: Number(roomsCount),
-    questsCount: Number(questsCount),
+    type: houseType as HouseType,
+    bedrooms: Number(roomsCount),
+    maxAdults: Number(questsCount),
     price: Number(price),
-    conveniences: conveniences
+    goods: conveniences
       ? (conveniences
         .split(';')
         .map((convenience) => convenience.trim()) as Conveniences[])
       : [],
     commentsCount: Number(commentsCount),
-    coords: CitiesCoords[city as City],
+    location: CitiesCoords[city as City],
   };
 }
