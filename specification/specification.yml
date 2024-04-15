@@ -435,16 +435,13 @@ components:
           type: string
           minLength: 1
           maxLength: 15
-          example: Ivan
         avatarUrl:
           type: string
         type:
           type: string
-          example: regular
         email:
           type: string
           pattern: ^\S+@\S+\.\S+$
-          example: user@mail.ru
     loginUser:
       type: object
       required:
@@ -484,12 +481,10 @@ components:
       properties:
         id:
           type: string
-          example: 89dsaj230ods
         price:
           type: integer
           minimum: 100
           maximum: 100000
-          example: 19999
         rating:
           type: number
           minimum: 1
@@ -499,13 +494,10 @@ components:
           type: string
           minLength: 10
           maxLength: 100
-          example: Cool apartment
         isPremium:
           type: boolean
-          example: false
         isFavorite:
           type: boolean
-          example: false
         city:
           $ref: "#/components/schemas/cityName"
         location:
@@ -518,12 +510,10 @@ components:
           type: number
           minimum: 1
           maximum: 8
-          example: 2
         description:
           type: string
           minLength: 20
           maxLength: 1024
-          example: The best apartment of the year
         goods:
           type: array
           items:
@@ -538,7 +528,6 @@ components:
           type: number
           minimum: 1
           maximum: 10
-          example: 4
     newOffer:
       type: object
       required:
@@ -647,12 +636,10 @@ components:
       properties:
         id:
           type: string
-          example: 4100fsrwe90jofsd90
         comment:
           type: string
           minLength: 5
           maxLength: 1024
-          example: Best for the best
         date:
           type: string
           format: date-time
