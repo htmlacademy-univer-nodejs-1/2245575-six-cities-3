@@ -21,13 +21,13 @@ export class DefaultCommentService implements CommentService {
     return result.populate('userId');
   }
 
-  public async deleteByOfferId(offerId: string): Promise<number> {
-    const result = await this.commentModel
-      .deleteMany({ offerId })
-      .exec();
+  // public async deleteByOfferId(offerId: string): Promise<number> {
+  //   const result = await this.commentModel
+  //     .deleteMany({ offerId })
+  //     .exec();
 
-    return result.deletedCount;
-  }
+  //   return result.deletedCount;
+  // }
 
   public async findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[] | null> {
     return this.commentModel
@@ -38,8 +38,8 @@ export class DefaultCommentService implements CommentService {
       .exec();
   }
 
-  public async exists(documentId: string): Promise<boolean> {
-    return (await this.commentModel
-      .exists({ _id: documentId })) !== null;
-  }
+  // public async exists(documentId: string): Promise<boolean> {
+  //   return (await this.commentModel
+  //     .exists({ _id: documentId })) !== null;
+  // }
 }

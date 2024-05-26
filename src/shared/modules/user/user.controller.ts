@@ -11,6 +11,9 @@ import { Config, RestSchema } from '../../libs/config/index.js';
 import { LoginUserRequest } from './login-user-request.type.js';
 import { UserRdo } from './rdo/user.rdo.js';
 import { HttpError } from '../../libs/rest/errors/http-error.js';
+import { ValidateDtoMiddleware } from '../../libs/rest/middleware/validate-dto.middleware.js';
+import { CreateUserDto } from './index.js';
+import { LoginUserDto } from './dto/login-user.dto.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -22,8 +25,8 @@ export class UserController extends BaseController {
     super(logger);
 
     this.logger.info('Register routes for UserController…');
-    this.addRoute({ path: '/register', method: HttpMethod.Post, handler: this.create });
-    this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login });
+    this.addRoute({ path: '/register', method: HttpMethod.Post, handler: this.create, middlewares: [new ValidateDtoMiddleware(CreateUserDto)] });
+    this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login, middlewares: [new ValidateDtoMiddleware(LoginUserDto)]});
     this.addRoute({ path: '/login', method: HttpMethod.Get, handler: this.checkAuth });
     this.addRoute({ path: '/logout', method: HttpMethod.Delete, handler: this.logout });
   }
