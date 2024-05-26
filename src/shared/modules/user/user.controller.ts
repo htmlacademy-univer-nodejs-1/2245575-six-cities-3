@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { BaseController, HttpMethod } from '../../libs/rest/index.js';
+import { BaseController, HttpMethod, ValidateObjectIdMiddleware } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { fillDTO } from '../../helpers/index.js';
@@ -14,6 +14,7 @@ import { HttpError } from '../../libs/rest/errors/http-error.js';
 import { ValidateDtoMiddleware } from '../../libs/rest/middleware/validate-dto.middleware.js';
 import { CreateUserDto } from './index.js';
 import { LoginUserDto } from './dto/login-user.dto.js';
+import { UploadFileMiddleware } from '../../libs/rest/middleware/upload-file.middleware.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -29,6 +30,18 @@ export class UserController extends BaseController {
     this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login, middlewares: [new ValidateDtoMiddleware(LoginUserDto)]});
     this.addRoute({ path: '/login', method: HttpMethod.Get, handler: this.checkAuth });
     this.addRoute({ path: '/logout', method: HttpMethod.Delete, handler: this.logout });
+    this.addRoute({
+      path: '/:userId/avatar',
+      method: HttpMethod.Post,
+      handler: this.uploadAvatar,
+      middlewares: [
+        new ValidateObjectIdMiddleware('id'),
+        new UploadFileMiddleware(
+          this.configService.get('UPLOAD_DIRECTORY'),
+          'avatar'
+        ),
+      ],
+    });
   }
 
   public async create(
@@ -48,6 +61,13 @@ export class UserController extends BaseController {
     const result = await this.userService.create(body, this.configService.get('SALT'));
     this.created(res, fillDTO(UserRdo, result));
   }
+
+  public async uploadAvatar(req: Request, res: Response) {
+    this.created(res, {
+      filepath: req.file?.path
+    });
+  }
+
 
   public async login({ body }: LoginUserRequest,
     _res: Response,

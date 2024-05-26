@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { BaseController, HttpMethod, ValidateObjectIdMiddleware } from '../../libs/rest/index.js';
+import { BaseController, DocumentExistsMiddleware, HttpMethod, ValidateObjectIdMiddleware } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { OfferService } from './offer-service.interface.js';
@@ -28,9 +28,10 @@ export class OfferController extends BaseController {
     this.addRoute({ path: '/:id', method: HttpMethod.Patch, handler: this.update, middlewares: [
       new ValidateObjectIdMiddleware('id'),
       new ValidateDtoMiddleware(UpdateOfferDto),
+      new DocumentExistsMiddleware(this.offerService, 'Offer', 'id')
     ], });
-    this.addRoute({ path: '/:id', method: HttpMethod.Delete, handler: this.delete, middlewares: [new ValidateObjectIdMiddleware('id')], });
-    this.addRoute({ path: '/:id', method: HttpMethod.Get, handler: this.getOneOffer, middlewares: [new ValidateObjectIdMiddleware('id')], });
+    this.addRoute({ path: '/:id', method: HttpMethod.Delete, handler: this.delete, middlewares: [new ValidateObjectIdMiddleware('id'), new DocumentExistsMiddleware(this.offerService, 'Offer', 'id'),], });
+    this.addRoute({ path: '/:id', method: HttpMethod.Get, handler: this.getOneOffer, middlewares: [new ValidateObjectIdMiddleware('id'), new DocumentExistsMiddleware(this.offerService, 'Offer', 'id')], });
     this.addRoute({ path: '/favorites', method: HttpMethod.Get, handler: this.getFavorites, middlewares: [new ValidateObjectIdMiddleware('id')], });
     this.addRoute({ path: '/favorites/:id', method: HttpMethod.Delete, handler: this.deleteFavorite, middlewares: [new ValidateObjectIdMiddleware('id')], });
     this.addRoute({ path: '/favorites/:id', method: HttpMethod.Post, handler: this.setFavorite, middlewares: [new ValidateObjectIdMiddleware('id')], });
