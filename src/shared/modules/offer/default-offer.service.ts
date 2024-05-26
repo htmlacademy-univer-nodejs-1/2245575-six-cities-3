@@ -35,16 +35,16 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async findByPremiumAndCity(city: string): Promise<DocumentType<OfferEntity>[] | null> {
+  public async findPremium(): Promise<DocumentType<OfferEntity>[] | null> {
     return this.offerModel
-      .find({ isPremium: true, city })
+      .find({ isPremium: true })
       .sort({ createdAt: SortType.Down })
       .limit(DEFAULT_OFFER_COUNT)
       .populate(['host'])
       .exec();
   }
 
-  public async findByFavorite(): Promise<DocumentType<OfferEntity>[] | null> {
+  public async findFavorite(): Promise<DocumentType<OfferEntity>[] | null> {
     return this.offerModel
       .find({ isFavorite: true })
       .populate(['host'])
