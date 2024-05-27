@@ -15,6 +15,8 @@ import { ValidateDtoMiddleware } from '../../libs/rest/middleware/validate-dto.m
 import { CreateUserDto } from './index.js';
 import { LoginUserDto } from './dto/login-user.dto.js';
 import { UploadFileMiddleware } from '../../libs/rest/middleware/upload-file.middleware.js';
+import { AuthService } from '../auth/auth-service.interace.js';
+import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -22,13 +24,14 @@ export class UserController extends BaseController {
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.UserService) private readonly userService: UserService,
     @inject(Component.Config) private readonly configService: Config<RestSchema>,
+    @inject(Component.AuthService) private readonly authService: AuthService,
   ) {
     super(logger);
 
     this.logger.info('Register routes for UserController…');
     this.addRoute({ path: '/register', method: HttpMethod.Post, handler: this.create, middlewares: [new ValidateDtoMiddleware(CreateUserDto)] });
     this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login, middlewares: [new ValidateDtoMiddleware(LoginUserDto)]});
-    this.addRoute({ path: '/login', method: HttpMethod.Get, handler: this.checkAuth });
+    this.addRoute({ path: '/login', method: HttpMethod.Get, handler: this.checkAuthenticate });
     this.addRoute({ path: '/logout', method: HttpMethod.Delete, handler: this.logout });
     this.addRoute({
       path: '/:userId/avatar',
@@ -69,28 +72,31 @@ export class UserController extends BaseController {
   }
 
 
-  public async login({ body }: LoginUserRequest,
-    _res: Response,
+  public async login(
+    { body }: LoginUserRequest,
+    res: Response,
   ): Promise<void> {
-    const existsUser = await this.userService.findByEmail(body.email);
+    const user = await this.authService.verify(body);
+    const token = await this.authService.authenticate(user);
+    const responseData = fillDTO(LoggedUserRdo, {
+      email: user.email,
+      token,
+    });
+    this.ok(res, responseData);
+  }
 
-    if (! existsUser) {
+  public async checkAuthenticate({ tokenPayload: { email }}: Request, res: Response) {
+    const foundedUser = await this.userService.findByEmail(email);
+
+    if (! foundedUser) {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
-        `User with email ${body.email} not found.`,
-        'UserController',
+        'Unauthorized',
+        'UserController'
       );
     }
 
-    throw new HttpError(
-      StatusCodes.NOT_IMPLEMENTED,
-      'Not implemented',
-      'UserController',
-    );
-  }
-
-  public checkAuth(req: Request, res: Response): void {
-    throw new HttpError(StatusCodes.NOT_IMPLEMENTED, 'not implemented', 'UserController');
+    this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
   }
 
   public logout(req: Request, res: Response): void {

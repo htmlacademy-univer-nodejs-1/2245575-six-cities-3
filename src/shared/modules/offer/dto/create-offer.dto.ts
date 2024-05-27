@@ -79,4 +79,6 @@ export class CreateOfferDto {
   public goods: Conveniences[];
 
   public location: Coords;
+
+  public userId: string;
 }
