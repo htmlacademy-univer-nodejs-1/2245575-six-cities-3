@@ -16,14 +16,14 @@ export class DefaultOfferService implements OfferService {
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
-    const result = await this.offerModel.create({...dto, coords: CitiesCoords[dto.city]});
+    const result = await this.offerModel.create({...dto, coords: CitiesCoords[dto.city], host: dto.userId});
     this.logger.info(`New offer created: ${dto.title}!`);
 
     return result;
   }
 
   public async findById(id: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById({id}).exec();
+    return this.offerModel.findById({_id: id}).exec();
   }
 
   public async find(count?: number): Promise<DocumentType<OfferEntity>[] | null> {

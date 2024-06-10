@@ -7,6 +7,7 @@ import { getMongoURI } from '../shared/helpers/index.js';
 import express, { Express } from 'express';
 import { Controller, ExceptionFilter } from '../shared/libs/rest/index.js';
 import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/parse-token.middleware.js';
+import cors from 'cors';
 
 @injectable()
 export class RestApplication {
@@ -18,6 +19,7 @@ export class RestApplication {
     @inject(Component.DatabaseClient) private readonly databaseClient: DatabaseClient,
     @inject(Component.UserController) private readonly userController: Controller,
     @inject(Component.OfferController) private readonly offerController: Controller,
+    @inject(Component.CommentController) private readonly commentController: Controller,
     @inject(Component.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilter,
     @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter) {
     this.server = express();
@@ -25,7 +27,8 @@ export class RestApplication {
 
   private async _initControllers() {
     this.server.use('/users', this.userController.router);
-    this.server.use('offer', this.offerController.router);
+    this.server.use('/offer', this.offerController.router);
+    this.server.use('/comments', this.commentController.router);
   }
 
   private async _initDb() {
@@ -52,7 +55,12 @@ export class RestApplication {
       '/upload',
       express.static(this.config.get('UPLOAD_DIRECTORY'))
     );
+    this.server.use(
+      '/static',
+      express.static(this.config.get('STATIC'))
+    );
     this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
+    this.server.use(cors());
   }
 
   private async _initExceptionFilters() {

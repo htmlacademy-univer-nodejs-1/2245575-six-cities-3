@@ -35,11 +35,10 @@ export class ImportCommand implements Command {
 
   private onCompleteImport(count: number) {
     console.info(`${count} rows imported.`);
-    this.databaseClient.disconnect();
   }
 
   private async saveOffer(offer: Offer) {
-    await this.userService.findOrCreate({
+    const user = await this.userService.findOrCreate({
       name: offer.author.name,
       email: offer.author.email,
       type: offer.author.type,
@@ -60,6 +59,7 @@ export class ImportCommand implements Command {
       price: offer.price,
       type: offer.type,
       location: CitiesCoords[offer.city],
+      userId: user.id,
     });
 
   }

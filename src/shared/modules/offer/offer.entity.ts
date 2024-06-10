@@ -36,7 +36,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop()
   public isFavourite!: boolean;
 
-  @prop()
+  @prop({default: 0})
   public rating!: number;
 
   @prop({
@@ -60,9 +60,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public goods!: Conveniences[];
 
-  @prop({
-    type: () => String,
-  })
+  @prop()
   public location: Coords;
 
   @prop({default: 0})

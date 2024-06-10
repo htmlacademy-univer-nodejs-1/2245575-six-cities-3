@@ -2,7 +2,6 @@ import { HouseType } from './house-type.enum.js';
 import { Conveniences } from './сonveniences.enum.js';
 
 export type MockServerData = {
-  postDates: string[];
   titles: string[];
   isPremiums: boolean[];
   isFavorites: boolean[];

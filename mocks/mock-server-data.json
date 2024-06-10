@@ -1,12 +1,5 @@
 {
   "api": {
-    "postDates": [
-      "2024-01-29T00:46:50+05:00",
-      "2024-02-29T00:46:50+05:00",
-      "2024-03-29T00:46:50+05:00",
-      "2024-04-29T00:46:50+05:00",
-      "2024-05-29T00:46:50+05:00"
-    ],
     "titles": [
       "Уютный домик",
       "Квартирка",
@@ -45,8 +38,8 @@
     "conveniences": [
       "Breakfast",
       "Air conditioning",
-      "Laptop friendly workspaceLaptop friendly workspace",
       "Baby seat",
+      "Laptop friendly workspace",
       "Washer",
       "Towels",
       "Fridge"
