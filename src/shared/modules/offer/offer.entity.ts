@@ -18,9 +18,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({trim: true})
   public description!: string;
 
-  @prop()
-  public postDate!: Date;
-
   @prop({
     type: () => String,
     enum: City
@@ -39,20 +36,20 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop()
   public isFavourite!: boolean;
 
-  @prop()
+  @prop({default: 0})
   public rating!: number;
 
   @prop({
     type: () => String,
     enum: HouseType
   })
-  public houseType!: HouseType;
+  public type!: HouseType;
 
   @prop({default: 0})
-  public roomsCount!: number;
+  public bedrooms!: number;
 
   @prop({default: 0})
-  public questsCount!: number;
+  public maxAdults!: number;
 
   @prop()
   public price!: number;
@@ -61,12 +58,10 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     type: () => String,
     enum: Conveniences,
   })
-  public conveniences!: Conveniences[];
+  public goods!: Conveniences[];
 
-  @prop({
-    type: () => String,
-  })
-  public coords: Coords;
+  @prop()
+  public location: Coords;
 
   @prop({default: 0})
   public commentsCount!: number;
@@ -75,7 +70,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     ref: UserEntity,
     required: true
   })
-  public authorId!: Ref<UserEntity>;
+  public host!: Ref<UserEntity>;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

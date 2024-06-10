@@ -7,19 +7,18 @@ import { Conveniences } from './сonveniences.enum.js';
 export type Offer = {
   title: string;
   description: string;
-  postDate: Date;
   city: City;
   previewImage: string;
   images: string[];
   isPremium: boolean;
-  isFavourite: boolean;
+  isFavorite: boolean;
   rating: number;
-  houseType: HouseType,
-  roomsCount: number;
-  questsCount: number;
+  type: HouseType,
+  bedrooms: number;
+  maxAdults: number;
   price: number;
-  conveniences: Conveniences[];
+  goods: Conveniences[];
   author: User;
   commentsCount: number;
-  coords: Coords,
+  location: Coords,
 }

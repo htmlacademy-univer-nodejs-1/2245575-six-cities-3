@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { OfferGenerator } from './offer-generator.interface.js';
 import { MockServerData } from '../../types/mock-server-data.type.js';
 import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
@@ -14,9 +13,6 @@ const ROOMS_COUNT_MAX = 8;
 
 const RATING_MIN = 1;
 const RATING_MAX = 5;
-
-const FIRST_WEEK_DAY = 1;
-const LAST_WEEK_DAY = 7;
 
 export class TSVOfferGenerator implements OfferGenerator {
   constructor(private readonly mockData: MockServerData) {}
@@ -40,14 +36,8 @@ export class TSVOfferGenerator implements OfferGenerator {
     const price = generateRandomValue(MIN_PRICE, MAX_PRICE);
     const houseType = getRandomItem(this.mockData.houseTypes);
     const commentsCount = generateRandomValue(0, 1000);
-
-    const postDate = dayjs()
-      .subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day')
-      .toISOString();
-
-
     return [
-      title, description, postDate, city, previewImage, images, isPremium, isFavorite, rating, houseType, roomsCount, questsCount, price, conveniences, price, authorFirstname, authorLastname, authorEmail, authorAvatar, commentsCount
+      title, description, city, previewImage, images, isPremium, isFavorite, rating, houseType, roomsCount, questsCount, price, conveniences, authorFirstname, authorLastname, authorEmail, authorAvatar, commentsCount
     ].join('\t');
   }
 }

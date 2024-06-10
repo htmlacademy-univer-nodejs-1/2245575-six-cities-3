@@ -8,7 +8,7 @@ import { Logger } from '../../shared/libs/logger/index.js';
 import { ConsoleLogger } from '../../shared/libs/logger/console.logger.js';
 import { DefaultUserService, UserModel } from '../../shared/modules/user/index.js';
 import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constant.js';
-import { Offer } from '../../shared/types/index.js';
+import { CitiesCoords, Offer } from '../../shared/types/index.js';
 
 export class ImportCommand implements Command {
   private userService: UserService;
@@ -35,31 +35,31 @@ export class ImportCommand implements Command {
 
   private onCompleteImport(count: number) {
     console.info(`${count} rows imported.`);
-    this.databaseClient.disconnect();
   }
 
   private async saveOffer(offer: Offer) {
     const user = await this.userService.findOrCreate({
-      ...offer.author,
+      name: offer.author.name,
+      email: offer.author.email,
+      type: offer.author.type,
+      avatarUrl: offer.author.avatarPath,
       password: DEFAULT_USER_PASSWORD
     }, this.salt);
 
     await this.offerService.create({
-      authorId: user.id,
       title: offer.title,
       description: offer.description,
-      postDate: offer.postDate,
       city: offer.city,
       previewImage: offer.previewImage,
       images: offer.images,
       isPremium: offer.isPremium,
-      isFavourite: offer.isFavourite,
-      rating: offer.rating,
-      roomsCount: offer.roomsCount,
-      questsCount: offer.questsCount,
-      conveniences: offer.conveniences,
+      bedrooms: offer.bedrooms,
+      maxAdults: offer.maxAdults,
+      goods: offer.goods,
       price: offer.price,
-      houseType: offer.houseType,
+      type: offer.type,
+      location: CitiesCoords[offer.city],
+      userId: user.id,
     });
 
   }
