@@ -17,6 +17,7 @@ import { LoginUserDto } from './dto/login-user.dto.js';
 import { UploadFileMiddleware } from '../../libs/rest/middleware/upload-file.middleware.js';
 import { AuthService } from '../auth/auth-service.interace.js';
 import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
+import { PrivateRouteMiddleware } from '../../libs/rest/middleware/private-route.middleware.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -31,7 +32,7 @@ export class UserController extends BaseController {
     this.logger.info('Register routes for UserController…');
     this.addRoute({ path: '/register', method: HttpMethod.Post, handler: this.create, middlewares: [new ValidateDtoMiddleware(CreateUserDto)] });
     this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login, middlewares: [new ValidateDtoMiddleware(LoginUserDto)]});
-    this.addRoute({ path: '/login', method: HttpMethod.Get, handler: this.checkAuthenticate });
+    this.addRoute({ path: '/login', method: HttpMethod.Get, handler: this.checkAuthenticate, middlewares: [new PrivateRouteMiddleware()] });
     this.addRoute({ path: '/logout', method: HttpMethod.Delete, handler: this.logout });
     this.addRoute({
       path: '/:userId/avatar',
@@ -99,7 +100,7 @@ export class UserController extends BaseController {
     this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
   }
 
-  public logout(req: Request, res: Response): void {
+  public logout(): void {
     throw new HttpError(StatusCodes.NOT_IMPLEMENTED, 'not implemented', 'UserController');
   }
 }

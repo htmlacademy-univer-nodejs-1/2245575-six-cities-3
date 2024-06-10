@@ -60,9 +60,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public goods!: Conveniences[];
 
-  @prop({
-    type: () => String,
-  })
   public location: Coords;
 
   @prop({default: 0})

@@ -8,10 +8,8 @@ import { fillDTO } from '../../helpers/index.js';
 import { OfferRdo } from './rdo/offer.rdo.js';
 import { CreateOfferRequest } from './create-offer-request.type.js';
 import { ParamOfferIdRequest } from './offer-id.type.js';
-import { UpdateOfferRdo } from './rdo/update.rdo.js';
 import { ValidateDtoMiddleware } from '../../libs/rest/middleware/validate-dto.middleware.js';
 import { CreateOfferDto } from './index.js';
-import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { PrivateRouteMiddleware } from '../../libs/rest/middleware/private-route.middleware.js';
 
 @injectable()
